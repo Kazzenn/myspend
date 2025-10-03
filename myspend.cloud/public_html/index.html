@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <title>MySpend - ระบบบันทึกรายรับรายจ่าย</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="google-site-verification" content="0h7321kLraMejXYiKWOK9Urn8QwDXqIt0vzg8uOfQ-Y" />
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="MySpendระบบจัดการรายรับรายจ่าย ดูสถิติการเงินแบบเรียลไทม์ ใช้งานง่าย เหมาะสำหรับทุกคนที่อยากบริหารการเงินส่วนตัว">
+    <meta name="keywords"
+        content="ระบบจัดการรายรับรายจ่าย, โปรแกรมบัญชีส่วนตัว, MySpend, Dashboard การเงิน, บริหารการเงิน, จัดการค่าใช้จ่าย, บัญชีครัวเรือน, บันทึกรายรับรายจ่าย">
+    <meta name="author" content="MySpend">
+    <meta name="robots" content="index, follow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #f0f2f5;
+            overflow-x: hidden;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(106, 17, 203, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 0.5s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 1.5s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 2.5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.8s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.8s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 2.8s; }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10px) rotate(180deg);
+            }
+        }
+
+        /* Gradient background animation */
+        .hero-section {
+            background: linear-gradient(-45deg, #6a11cb, #2575fc, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating shapes in hero */
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: heroFloat 6s ease-in-out infinite;
+        }
+
+        .hero-shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .hero-shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .hero-shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Feature cards animations */
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(106, 17, 203, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .feature-card:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(106, 17, 203, 0.2);
+        }
+
+        /* Animated icons */
+        .feature-icon {
+            color: #2575fc;
+            font-size: 3rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: scale(1.2) translateY(0); }
+            40% { transform: scale(1.2) translateY(-10px); }
+            60% { transform: scale(1.2) translateY(-5px); }
+        }
+
+        /* Pulsing elements */
+        .pulse {
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .call-to-action {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 50px 0;
+            margin-top: -50px;
+            position: relative;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+            animation: slideInUp 1s ease-out 0.5s both;
+        }
+
+        /* Button animations */
+        .discord-btn {
+            background: linear-gradient(45deg, #5865F2, #404EAE);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: slideInUp 1s ease-out 0.7s both;
+        }
+
+        .discord-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .discord-btn:hover::before {
+            left: 100%;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.3);
+        }
+
+        .discord-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Rotating money icon */
+        .rotating-money {
+            display: inline-block;
+            animation: rotateY 3s ease-in-out infinite;
+        }
+
+        @keyframes rotateY {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+        }
+
+        /* Text typing effect */
+        .typing-text {
+            overflow: hidden;
+            border-right: 2px solid rgba(255, 255, 255, 0.75);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            animation-delay: 1s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: rgba(255, 255, 255, 0.75); }
+        }
+
+        /* Footer wave effect */
+        footer {
+            background: #333;
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M1200 120L0 16.48 0 0 1200 0 1200 120z' fill='%23333'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(10px); }
+        }
+
+        /* Scroll animations */
+        .scroll-element {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading animation for page */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-out 2s forwards;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loader-icon {
+            font-size: 4rem;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .feature-card { margin-bottom: 2rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-content">
+            <i class="fas fa-code loader-icon"></i>
+            <h4>กำลังโหลด</h4>
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <header class="hero-section text-center">
+        <!-- Floating shapes -->
+        <div class="hero-shape"></div>
+        <div class="hero-shape"></div>
+        <div class="hero-shape"></div>
+        
+        <div class="container">
+            <h1 class="hero-title">
+                MySpend<br>
+                <span class="typing-text">บันทึกรายรับรายจ่ายของคุณ</span>
+            </h1>
+            <p class="hero-subtitle mt-3">
+                จัดการการเงินให้ง่ายขึ้นด้วยระบบบนโลกออนไลน์<br>
+                เริ่มต้นควบคุมอนาคตทางการเงินของคุณได้เลย
+            </p>
+            <a href="https://dashboard.myspend.cloud/" class="btn discord-btn mt-4">
+                <i class="me-2 fa-solid fa-share pulse"></i> เริ่มต้นใช้งานฟรี
+            </a>
+        </div>
+    </header>
+
+    <section class="container my-5 call-to-action">
+        <div class="row text-center mb-5 scroll-element">
+            <div class="col-12">
+                <h2 class="fw-bold mb-4">
+                    คุณสมบัติเด่น <i class="rotating-money fas fa-pen-fancy ms-2"></i>
+                </h2>
+                <p class="text-muted">MySpend ถูกออกแบบมาเพื่อให้การจัดการเงินเป็นเรื่องง่ายสำหรับทุกคน</p>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 feature-card scroll-element">
+                    <div class="card-body">
+                        <i class="fas fa-chart-line feature-icon mb-3"></i>
+                        <h5 class="card-title fw-bold">สรุปภาพรวมการเงิน</h5>
+                        <p class="card-text text-muted">ดูรายงานสรุปรายรับรายจ่ายแบบรายเดือนและรายปี
+                            เพื่อวางแผนการเงินได้ดียิ่งขึ้น</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 feature-card scroll-element">
+                    <div class="card-body">
+                        <i class="fas fa-coins feature-icon mb-3"></i>
+                        <h5 class="card-title fw-bold">บันทึกง่ายและรวดเร็ว</h5>
+                        <p class="card-text text-muted">บันทึก ลบ แก้ไขรายการได้ทุกที่ทุกเวลา ผ่านเว็บไซต์ที่ใช้งานง่าย</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 feature-card scroll-element">
+                    <div class="card-body">
+                        <i class="fas fa-solid fa-face-smile feature-icon mb-3 pulse"></i>
+                        <h5 class="card-title fw-bold">ปลอดภัย รึเปล่านะ?</h5>
+                        <p class="card-text text-muted">เนื่องจากนี่เป็น Demo เลยยังได้ทำระบบป้องกันต่างๆ แต่ก็ปลอดภัยระดับนึง</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center py-5 scroll-element">
+        <div class="container">
+            <h2 class="fw-bold">พร้อมที่จะเริ่มจัดการการเงินแล้วหรือยัง?</h2>
+            <p class="text-muted mb-4">เข้าร่วมกับเราวันนี้และเริ่มต้นวางแพนอนาคตทางการเงินของคุณ</p>
+            <a href="https://dashboard.myspend.cloud/" class="btn discord-btn btn-lg">
+                <i class="fa-solid fa-seedling me-2 pulse"></i> เข้าสู่ระบบ
+            </a>
+        </div>
+    </section>
+
+    <footer class="text-center py-3">
+        <div class="container">
+            <p class="mb-0">© 2025 MySpend. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Scroll animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.scroll-element');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            animateOnScroll();
+            
+            // Add random delays to particles
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach((particle, index) => {
+                const randomDelay = Math.random() * 5;
+                const randomDuration = 4 + Math.random() * 4;
+                particle.style.animationDelay = randomDelay + 's';
+                particle.style.animationDuration = randomDuration + 's';
+            });
+
+            // Add parallax effect to hero shapes
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                const shapes = document.querySelectorAll('.hero-shape');
+                shapes.forEach((shape, index) => {
+                    const speed = 0.3 + (index * 0.1);
+                    shape.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+
+            // Mouse follow effect for hero
+            const hero = document.querySelector('.hero-section');
+            hero.addEventListener('mousemove', (e) => {
+                const shapes = document.querySelectorAll('.hero-shape');
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                
+                shapes.forEach((shape, index) => {
+                    const speed = (index + 1) * 0.02;
+                    const x = (clientX - innerWidth / 2) * speed;
+                    const y = (clientY - innerHeight / 2) * speed;
+                    
+                    shape.style.transform += ` translate(${x}px, ${y}px)`;
+                });
+            });
+        });
+
+        // Add click ripple effect to buttons
+        document.querySelectorAll('.discord-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+                
+                button.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

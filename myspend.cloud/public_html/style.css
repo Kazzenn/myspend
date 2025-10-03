@@ -1,0 +1,212 @@
+/* style.css */
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.body {
+    font-family: "Kanit", sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    /* เพิ่มการเปลี่ยนสีพื้นหลังอย่างช้าๆ */
+    transition: background-color 0.5s ease; 
+}
+
+/* กล่องหลัก */
+.container-box {
+    font-family: "Kanit", sans-serif;
+    max-width: 420px;
+    /* ปรับ margin ด้านบนและล่างสำหรับมือถือ */
+    margin: 30px auto; 
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 15px;
+    /* เพิ่มเงาที่ดูดีขึ้น */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+    /* เพิ่ม transition ให้กล่องหลัก */
+    transition: all 0.4s ease;
+    /* ปรับขนาดกล่องหลักให้ยืดหยุ่น */
+    box-sizing: border-box; 
+}
+
+/* เอฟเฟกต์เมื่อวางเมาส์เหนือกล่อง (ถ้าใช้บน desktop) */
+.container-box:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+
+/* หัวข้อ */
+.container-box h1 {
+    font-family: "Kanit", sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-align: center;
+    /* เพิ่ม animation การปรากฏตัว */
+    animation: fadeInDown 0.8s ease-out; 
+}
+
+/* input-group */
+.input-group {
+    font-family: "Kanit", sans-serif;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    /* เพิ่ม animation การปรากฏตัวแบบล่าช้า */
+    animation: fadeIn 1s ease-out forwards; 
+    opacity: 0; /* ซ่อนไว้ก่อนเริ่ม animation */
+}
+
+/* ลำดับการแสดงผลของ input-group */
+.input-group:nth-child(2) { animation-delay: 0.1s; }
+.input-group:nth-child(3) { animation-delay: 0.2s; }
+.input-group:nth-child(4) { animation-delay: 0.3s; } /* ปุ่ม */
+.text-center { animation: fadeIn 1s ease-out forwards; opacity: 0; animation-delay: 0.4s; } /* ลิงก์ */
+
+
+.input-group label {
+    font-family: "Kanit", sans-serif;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.input-group input {
+    font-family: "Kanit", sans-serif;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    /* เพิ่ม transition ให้ดู smooth */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+    box-sizing: border-box; /* สำคัญสำหรับ responsive */
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* ปุ่ม */
+button {
+    font-family: "Kanit", sans-serif;
+    width: 100%;
+    padding: 12px; /* เพิ่มขนาด padding ให้กดง่ายขึ้น */
+    font-size: 1.1rem; /* เพิ่มขนาดตัวอักษร */
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff; /* สีหลัก */
+    color: #fff;
+    cursor: pointer;
+    /* เพิ่ม transition */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; 
+}
+
+button:hover {
+    background-color: #0056b3; /* สีเข้มขึ้นเมื่อ hover */
+    opacity: 1; /* ลบ opacity: 0.9 เดิม */
+    transform: translateY(-1px); /* ยกขึ้นเล็กน้อย */
+    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.3);
+}
+
+/* ปุ่มเมื่อถูกกด */
+button:active {
+    transform: translateY(0);
+}
+
+/* ลิงก์สมัครสมาชิก */
+.container-box a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.container-box a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* กล่องข้อความผิดพลาด */
+.error-message-box {
+    background-color: #ffe6e6;
+    border: 1px solid #ff4444;
+    border-radius: 8px; /* ปรับให้โค้งมนขึ้น */
+    color: #dc3545;
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: center;
+    /* เพิ่ม animation การปรากฏตัว */
+    animation: shake 0.5s ease-in-out; 
+}
+
+.error-message-box h3 {
+    font-size: 1rem; /* ปรับขนาดตัวอักษรให้เหมาะสม */
+    margin: 0;
+}
+
+
+/* --- Keyframes สำหรับ Animation --- */
+
+/* การปรากฏตัวแบบเลื่อนลง */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* การสั่นเมื่อมีข้อผิดพลาด */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* การปรากฏตัวอย่างเรียบง่าย */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* --- Responsive Design (ใช้ Media Query) --- */
+@media (max-width: 500px) {
+    .container-box {
+        /* ปรับ padding เมื่ออยู่บนมือถือ */
+        margin: 20px 15px; 
+        padding: 25px 20px;
+        /* ลบเงาหรือทำให้เบาลงบนมือถือเพื่อประสิทธิภาพ */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+    }
+
+    .container-box h1 {
+        font-size: 1.6rem;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    /* ทำให้ input และ label มีขนาดใหญ่ขึ้นสำหรับนิ้วมือ */
+    .input-group label, .container-box a {
+        font-size: 0.95rem;
+    }
+}
+
+/* ลบโค้ดในแท็ก <style> ใน HTML เพื่อใช้ CSS จาก style.css เท่านั้น (เพื่อให้โค้ดไม่ซ้ำซ้อน) */
+/* (คุณอาจต้องลบหรือแก้ไขโค้ดที่ซ้ำซ้อนในแท็ก <style> ที่อยู่ในไฟล์ index.php/login.php) */
