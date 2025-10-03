@@ -146,7 +146,18 @@ if (!$conn) {
    - Email
    - Password
 
-#### 3.2 แก้ไขไฟล์ send_reset_email.php
+#### 3.2 หาก PHPMailer มีปัญหา
+ทดลองโหลดไฟล์ใหม่ [ที่นี่](https://github.com/PHPMailer/PHPMailer/archive/master.zip) แล้วนำไปวางในไฟล์เดียวกับโฟลเดอร์เดียวกับ **send_reset_email.php** (ตรวจสอบว่า redirect ถูกต้องหรือไม่ที่ส่วนนี้)
+```php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+```
+
+#### 3.3 แก้ไขไฟล์ send_reset_email.php
 
 ```php
 // กำหนดการเชื่อมต่อ SMTP
@@ -159,7 +170,7 @@ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mail->Port       = 465;
 ```
 
-#### 3.3 แก้ไข URL ในอีเมล
+#### 3.4 แก้ไข URL ในอีเมล
 
 ```php
 $reset_link = "https://yourdomain.com/reset_password.php?token=" . urlencode($reset_token);
@@ -187,7 +198,7 @@ $reset_link = "https://yourdomain.com/reset_password.php?token=" . urlencode($re
 $secret = "YOUR_SECRET_KEY";  // แก้ไขที่นี่
 ```
 
-#### 4.4 แก้ไขไฟล์ login.php (ถ้ามี)
+#### 4.4 แก้ไขไฟล์ login.php 
 
 ```html
 <div class="h-captcha" data-sitekey="YOUR_SITE_KEY"></div> // แก้ไขที่นี่
@@ -199,7 +210,7 @@ $secret = "YOUR_SECRET_KEY";  // แก้ไขที่นี่
 $secret = "YOUR_SECRET_KEY";  // แก้ไขที่นี่
 ```
 
-### 5. ปิด Debug Mode (หลังทดสอบแล้ว ถ้าใช้งานได้ให้แก้ไข)
+### 5. ปิด Debug Mode (หลังทดสอบแล้ว ถ้าใช้งานได้ให้เปลี่ยนเป็น false)
 
 #### 5.1 ในไฟล์ send_reset_email.php
 
@@ -274,6 +285,7 @@ myspend/
 ---
 
 ## 📧 ติดต่อ
+
 
 
 
