@@ -256,7 +256,7 @@ $debug_mode = false;  // เปลี่ยนจาก true เป็น false
 
 ## 📁 โครงสร้างไฟล์
 ```
-myspend/
+project/
 ├── index.php                   # หน้าแรก
 ├── login.php                   # หน้าเข้าสู่ระบบ
 ├── login_db.php               # ประมวลผล login
@@ -267,7 +267,7 @@ myspend/
 ├── forgot_password.php        # หน้าลืมรหัสผ่าน
 ├── send_reset_email.php       # ส่งอีเมลรีเซ็ต
 ├── reset_password.php         # หน้ารีเซ็ตรหัสผ่าน
-├── dash.css                   # Stylesheet หลัก
+├── style.css                   # Stylesheet หลัก
 ├── PHPMailer/                 # PHPMailer Library
 │   ├── Exception.php
 │   ├── PHPMailer.php
@@ -284,9 +284,6 @@ myspend/
 
 ---
 
-## 📧 ติดต่อ
-
-
-
+## นี่เป็นแค่ตัวอย่างโปรเจกต์มีโค้ดหลายส่วนที่ไม่ถูกต้อง ขออภัยในความไม่สะดวก
 
 
